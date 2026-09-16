@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "GiftCard": {
+      "title": "GiftCard",
+      "description": "Cartão Presente oficial da Fronteira Cutelaria",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Código completo impresso do cartão, ex: FC-001-8287"
+        },
+        "centralNumber": {
+          "type": "string",
+          "description": "Número do meio de 3 dígitos com zeros à esquerda preservados, ex: 001"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Nome do cliente associado ao cartão presente"
+        },
+        "initialValue": {
+          "type": "number",
+          "description": "Valor facial inicial creditado no cartão"
+        },
+        "currentBalance": {
+          "type": "number",
+          "description": "Saldo atual disponível para compras"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ativo", "bloqueado", "esgotado", "pendente"],
+          "description": "Status operacional do cartão"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data de criação ou registro"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data da última movimentação"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Observações adicionais sobre o cartão"
+        }
+      },
+      "required": ["code", "centralNumber", "status"]
+    },
+    "GiftCardTransaction": {
+      "title": "GiftCardTransaction",
+      "description": "Registro de transação / utilização de valor de cartão presente",
+      "type": "object",
+      "properties": {
+        "cardId": {
+          "type": "string",
+          "description": "ID ou código do cartão presente"
+        },
+        "cardCode": {
+          "type": "string",
+          "description": "Código completo do cartão presente"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["carga_inicial", "debito_uso", "estorno", "ajuste"],
+          "description": "Tipo de movimentação"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Valor monetário da transação"
+        },
+        "balanceBefore": {
+          "type": "number",
+          "description": "Saldo antes da transação"
+        },
+        "balanceAfter": {
+          "type": "number",
+          "description": "Saldo após a transação"
+        },
+        "description": {
+          "type": "string",
+          "description": "Descrição do uso ou produto comprado"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data e hora exata da transação"
+        },
+        "operator": {
+          "type": "string",
+          "description": "Identificação do operador ou terminal de atendimento"
+        }
+      },
+      "required": ["cardId", "cardCode", "type", "amount", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/giftCards/{cardId}": {
+      "schema": "GiftCard",
+      "description": "Coleção principal de cartões-presente"
+    },
+    "/giftCardTransactions/{transactionId}": {
+      "schema": "GiftCardTransaction",
+      "description": "Histórico imutável de transações e utilizações"
+    }
+  }
+}

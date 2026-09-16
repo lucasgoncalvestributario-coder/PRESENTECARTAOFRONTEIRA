@@ -1,0 +1,6 @@
+{
+  "name": "Cartão Presente Fronteira Cutelaria",
+  "description": "Sistema de gerenciamento, consulta e transações de cartões presente da Fronteira Cutelaria com integração Firebase Firestore.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
